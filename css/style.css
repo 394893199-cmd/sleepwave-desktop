@@ -1,0 +1,125 @@
+/* SleepWave 样式：夜晚星空主题 */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg1: #0b1026;
+  --bg2: #1a2040;
+  --card: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.12);
+  --text: #e8ecff;
+  --muted: #9aa3c7;
+  --accent: #6fa8ff;
+  --accent2: #9f7bff;
+  --good: #6ee7b7;
+  --warn: #fbbf24;
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+  color: var(--text);
+  background: radial-gradient(1200px 700px at 20% -10%, #1b2350 0%, var(--bg1) 55%) fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hero {
+  text-align: center;
+  padding: 34px 16px 10px;
+}
+.hero h1 { font-size: 30px; letter-spacing: 1px; }
+.hero h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.subtitle { color: var(--muted); margin-top: 8px; font-size: 14px; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 18px;
+  max-width: 1080px;
+  margin: 22px auto 0;
+  padding: 0 16px 30px;
+}
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 22px;
+  backdrop-filter: blur(6px);
+}
+.card h2 { font-size: 17px; margin-bottom: 14px; color: var(--accent); }
+.card h3 { font-size: 14px; margin: 16px 0 8px; color: var(--muted); }
+
+.field { margin-bottom: 13px; }
+.field label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 5px; }
+.field.inline { display: flex; align-items: center; gap: 10px; }
+.field.inline label { margin-bottom: 0; }
+.row { display: flex; gap: 8px; }
+
+input[type="text"], input[type="number"], input[type="time"], select {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+}
+input[type="text"]:focus, input[type="number"]:focus, input[type="time"]:focus, select:focus {
+  border-color: var(--accent);
+}
+input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); }
+input[type="range"] { width: 150px; accent-color: var(--accent); }
+
+.btn {
+  border: none;
+  border-radius: 9px;
+  padding: 10px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #fff;
+  transition: opacity 0.15s, transform 0.05s;
+}
+.btn:hover { opacity: 0.88; }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.btn.primary { background: linear-gradient(90deg, var(--accent), var(--accent2)); width: 100%; margin-top: 6px; font-weight: 600; }
+.btn.secondary { background: rgba(255, 255, 255, 0.14); white-space: nowrap; }
+.btn.play { background: var(--good); color: #0b2b1f; font-weight: 700; }
+.btn.stop { background: rgba(255, 255, 255, 0.16); }
+
+.status { margin-top: 10px; font-size: 13px; color: var(--muted); min-height: 18px; }
+.status.err { color: #fca5a5; }
+.status.ok { color: var(--good); }
+
+.ssi-block { margin-bottom: 14px; }
+.ssi-label { font-size: 14px; margin-bottom: 6px; }
+.ssi-label strong { font-size: 22px; color: var(--accent); }
+.ssi-bar { height: 12px; background: rgba(255, 255, 255, 0.08); border-radius: 8px; overflow: hidden; }
+.ssi-fill { height: 100%; width: 0; border-radius: 8px; background: linear-gradient(90deg, var(--accent), var(--good)); transition: width 0.5s ease; }
+
+.param-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.param-table td { padding: 7px 4px; border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+.param-table td:first-child { color: var(--muted); width: 42%; }
+
+.hints { list-style: none; margin-top: 10px; }
+.hints li { font-size: 12.5px; color: var(--warn); padding: 4px 0 4px 16px; position: relative; }
+.hints li::before { content: "!"; position: absolute; left: 0; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: rgba(251, 191, 36, 0.2); color: var(--warn); font-size: 10px; text-align: center; line-height: 14px; }
+
+#wave { width: 100%; height: 180px; background: rgba(0, 0, 0, 0.3); border-radius: 10px; border: 1px solid var(--border); }
+
+.controls { display: flex; align-items: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.controls .vol { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+
+.disclaimer {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 6px 18px 34px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
