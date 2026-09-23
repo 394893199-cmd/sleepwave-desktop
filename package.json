@@ -1,0 +1,60 @@
+{
+  "name": "sleepwave-desktop",
+  "version": "1.1.0",
+  "description": "SleepWave 睡眠声波生成器 · 根据时间/地点/温度/体型生成个性化助眠声波的桌面应用（双耳节拍/等时音/色噪声/低频基座/高频调制载波）",
+  "main": "main.js",
+  "license": "MIT",
+  "author": "sleepwave-desktop contributors",
+  "homepage": "https://github.com/394893199-cmd/sleepwave-desktop",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win",
+    "smoke": "electron . --smoke-test"
+  },
+  "devDependencies": {
+    "electron": "^44.4.3",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "io.github.sleepwave.desktop",
+    "productName": "SleepWave 睡眠声波生成器",
+    "copyright": "MIT License",
+    "files": [
+      "main.js",
+      "index.html",
+      "css/**/*",
+      "js/**/*",
+      "docs/**/*",
+      "LICENSE"
+    ],
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "SleepWave 睡眠声波生成器",
+      "installerLanguages": [
+        "zh_CN",
+        "en_US"
+      ],
+      "artifactName": "SleepWave-Setup-${version}.${ext}",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

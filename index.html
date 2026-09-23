@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.open-meteo.com https://geocoding-api.open-meteo.com; img-src 'self' data:">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SleepWave 睡眠声波生成器</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="hero">
+  <h1>SleepWave <span>睡眠声波生成器</span></h1>
+  <p class="subtitle">基于脑波夹带与慢波节奏的个性化助眠声波 · 支持双耳节拍 / 等时音 / 色噪声 / 高频调制载波</p>
+</header>
+
+<main class="layout">
+  <section class="card form-card">
+    <h2>1 · 填入选睡信息</h2>
+
+    <div class="field">
+      <label for="timeInput">当前时间（决定睡眠节律档位）</label>
+      <input type="time" id="timeInput" value="23:00">
+    </div>
+
+    <div class="field">
+      <label for="locationInput">地点（用于获取室外温度 / 节律基准）</label>
+      <div class="row">
+        <input type="text" id="locationInput" placeholder="如 北京，或留空自动定位">
+        <button id="locateBtn" class="btn secondary" type="button">定位获取气温</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="currentTempInput">当前温度 ℃（室外，定位后自动填充）</label>
+      <input type="number" id="currentTempInput" value="20" min="-30" max="50" step="0.5">
+    </div>
+
+    <div class="field">
+      <label for="indoorTempInput">室内温度 ℃</label>
+      <input type="number" id="indoorTempInput" value="22" min="10" max="40" step="0.5">
+    </div>
+
+    <div class="field">
+      <label for="genderSelect">性别</label>
+      <select id="genderSelect">
+        <option value="male">男</option>
+        <option value="female">女</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="ageInput">年龄</label>
+      <input type="number" id="ageInput" value="30" min="6" max="90" step="1">
+    </div>
+
+    <div class="field">
+      <label for="heightInput">身高 cm</label>
+      <input type="number" id="heightInput" value="170" min="120" max="220" step="1">
+    </div>
+
+    <div class="field">
+      <label for="weightInput">体重 kg</label>
+      <input type="number" id="weightInput" value="65" min="30" max="200" step="1">
+    </div>
+
+    <div class="field inline">
+      <label for="deepSleepToggle">深睡优先（强制 δ 波 0.5~3 Hz）</label>
+      <input type="checkbox" id="deepSleepToggle">
+    </div>
+
+    <button id="generateBtn" class="btn primary" type="button">生成助眠声波</button>
+    <p id="statusText" class="status"></p>
+  </section>
+
+  <section class="card result-card">
+    <h2>2 · 声波方案</h2>
+    <div class="ssi-block">
+      <div class="ssi-label">睡眠适宜度指数 <strong id="ssiValue">--</strong> / 100</div>
+      <div class="ssi-bar"><div id="ssiBar" class="ssi-fill" style="width:0%"></div></div>
+    </div>
+
+    <table class="param-table" id="paramTable">
+      <tr><td>目标脑波频段</td><td id="pBand">--</td></tr>
+      <tr><td>脑波频率 f_beat</td><td id="pBeat">--</td></tr>
+      <tr><td>双耳节拍（需耳机）</td><td id="pBinaural">--</td></tr>
+      <tr><td>等时脉冲节奏</td><td id="pPulse">--</td></tr>
+      <tr><td>色噪声层</td><td id="pNoise">--</td></tr>
+      <tr><td>低频基座</td><td id="pLow">--</td></tr>
+      <tr><td>高频调制载波</td><td id="pCarrier">--</td></tr>
+      <tr><td>推荐时长</td><td id="pDuration">--</td></tr>
+    </table>
+
+    <ul id="hintList" class="hints"></ul>
+
+    <h3>实时波形</h3>
+    <canvas id="wave" width="640" height="180"></canvas>
+
+    <div class="controls">
+      <button id="playBtn" class="btn play" type="button" disabled>播放</button>
+      <button id="stopBtn" class="btn stop" type="button" disabled>停止</button>
+      <label class="vol">音量 <input type="range" id="volumeSlider" min="0" max="100" value="50"> <span id="volValue">50%</span></label>
+    </div>
+  </section>
+</main>
+
+<footer class="disclaimer">
+  本软件为睡眠辅助工具，非医疗器械，不诊断或治疗失眠 / 睡眠呼吸暂停；个体效果因人而异。
+  普通扬声器与耳机无法发出真实超声波（&gt;20 kHz）与经颅超声刺激，本软件高频组件为可听频段内的高频载波调制（探索性），且受听力保护上限约束。
+  建议佩戴立体声耳机，音量不超过 50 dB，避免长时间高音量使用。
+</footer>
+
+<script src="js/algorithm.js"></script>
+<script src="js/weather.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
